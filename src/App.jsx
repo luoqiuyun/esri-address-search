@@ -5,6 +5,8 @@ import "./styles.css";
 
 const App = () => {
   const [vars, setVars] = useState(null);
+  const [viewProperties, setViewProperties] = useState(null);
+  const [mapAttrs, setMapAttrs] = useState({});
 
   useEffect(() => {
     fetch('/api/vars')
@@ -15,6 +17,12 @@ const App = () => {
       .then(data => setVars(data))
       .catch((response) => {});
   }, []);
+
+  useEffect(() => {
+    if (!vars) return;
+    setViewProperties(vars.viewProperties.SanJose);
+    setMapAttrs(vars.mapAttrs);
+  }, [vars]);
 
   const addSearch = function (map, view) {
     if (!vars) return;
@@ -28,13 +36,13 @@ const App = () => {
     });
   };
 
-  const attrs = !!vars ? vars.mapAttrs : {};
+  //const attrs = !!vars ? vars.mapAttrs : {};
 
   return (
     <Map
-      viewProperties={{center: [-90, 38]}}
+      {...mapAttrs}
       onLoad={addSearch}
-      {...attrs}
+      viewProperties={viewProperties}
     />
   );
 };
