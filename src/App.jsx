@@ -5,7 +5,7 @@ import "./styles.css";
 
 const App = () => {
   const [vars, setVars] = useState(null);
-  const [viewProperties, setViewProperties] = useState(null);
+  const [viewProperties, setViewProperties] = useState({center: [-122, 37.6], zoom: 9});
   const [mapAttrs, setMapAttrs] = useState({});
 
   useEffect(() => {
@@ -20,8 +20,8 @@ const App = () => {
 
   useEffect(() => {
     if (!vars) return;
-    setViewProperties(vars.viewProperties.SanJose);
     setMapAttrs(vars.mapAttrs);
+    setViewProperties(vars.viewProperties.SanJose);
   }, [vars]);
 
   const addSearch = function (map, view) {
