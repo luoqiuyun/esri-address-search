@@ -1,0 +1,41 @@
+import React, { useState, useEffect} from 'react';
+import { Map } from "@esri/react-arcgis";
+import { loadModules } from "esri-loader";
+import "./styles.css";
+
+const App = () => {
+  const [vars, setVars] = useState(null);
+
+  useEffect(() => {
+    fetch('/api/vars')
+      .then(response => {
+        if (response.ok) return response.json();
+        return Promise.reject(response);
+      })
+      .then(data => setVars(data))
+      .catch((response) => {});
+  }, []);
+
+  const handleMapLoad = function (map, view) {
+    if (!vars) return;
+    loadModules([vars.esriModules.search]).then(([Search]) => {
+      const searchWidget = new Search({
+        view: view
+      });
+      view.ui.add(searchWidget, {
+        position: "top-right"
+      });
+    });
+  };
+
+  const attrs = !!vars ? vars.mapAttrs : {};
+
+  return (
+    <Map
+      onLoad={handleMapLoad}
+      {...attrs}
+    />
+  );
+};
+
+export default App;
