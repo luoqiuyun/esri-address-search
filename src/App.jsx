@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from 'react';
-import { Map } from "@esri/react-arcgis";
 import { loadModules } from "esri-loader";
+import { Map } from "@esri/react-arcgis";
 import "./styles.css";
 
 const App = () => {
