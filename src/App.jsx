@@ -16,7 +16,7 @@ const App = () => {
       .catch((response) => {});
   }, []);
 
-  const handleMapLoad = function (map, view) {
+  const addSearch = function (map, view) {
     if (!vars) return;
     loadModules([vars.esriModules.search]).then(([Search]) => {
       const searchWidget = new Search({
@@ -32,7 +32,7 @@ const App = () => {
 
   return (
     <Map
-      onLoad={handleMapLoad}
+      onLoad={addSearch}
       {...attrs}
     />
   );
