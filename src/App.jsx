@@ -32,6 +32,7 @@ const App = () => {
 
   return (
     <Map
+      viewProperties={{center: [-90, 38]}}
       onLoad={addSearch}
       {...attrs}
     />
